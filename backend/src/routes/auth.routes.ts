@@ -1,0 +1,13 @@
+import { Router } from "express";
+import { asyncHandler } from "../utils/asyncHandler";
+import { register, login, me, forgotPassword, resetPassword, updateProfile, changePassword } from "../controllers/auth.controller";
+import { requireAuth } from "../middleware/auth";
+const router = Router();
+router.post("/register", asyncHandler(register));
+router.post("/login", asyncHandler(login));
+router.get("/me", requireAuth, asyncHandler(me));
+router.patch("/profile", requireAuth, asyncHandler(updateProfile));
+router.post("/change-password", requireAuth, asyncHandler(changePassword));
+router.post("/forgot-password", asyncHandler(forgotPassword));
+router.post("/reset-password", asyncHandler(resetPassword));
+export default router;
